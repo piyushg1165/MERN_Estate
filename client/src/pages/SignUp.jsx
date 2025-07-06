@@ -49,6 +49,7 @@ export default function SignUp() {
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Create an account
               </h1>
+              {error && <p className='text-red-500 mt-5'>{error}</p>}
               <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
                 <div>
                   <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900">Username</label>
@@ -101,9 +102,9 @@ export default function SignUp() {
                 </button>
                 <p className="text-sm font-light text-gray-500">
                   Already have an account?{' '}
-                  <a href="#" className="font-medium text-blue-600 hover:underline">
+                  <Link to="/sign-in" className="font-medium text-blue-600 hover:underline">
                     Login here
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>
@@ -112,4 +113,4 @@ export default function SignUp() {
       </section>
     </div>
   )
-}
+};
