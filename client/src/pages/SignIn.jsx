@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSlice.js';
 import { useSelector } from 'react-redux';
+import OAuth from '../components/Oauth.jsx'; 
 
 export default function SignIn() {
 
@@ -84,12 +85,8 @@ export default function SignIn() {
                 >
                   {loading ? 'Loading...' : 'Sign In'}
                 </button>
-                <button
-                  type="submit"
-                  className="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                >
-                  Create an account
-                </button>
+                <OAuth />
+                
                 <p className="text-sm font-light text-gray-500">
                   Dont have an account?{' '}
                   <Link to="/sign-up" className="font-medium text-blue-600 hover:underline">

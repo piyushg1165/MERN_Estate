@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import OAuth from '../components/Oauth.jsx';
 
 
 export default function SignUp() {
@@ -94,12 +95,8 @@ export default function SignUp() {
                 >
                   {loading ? 'Loading...' : 'Sign Up'}
                 </button>
-                <button
-                  type="submit"
-                  className="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                >
-                  Create an account
-                </button>
+                <OAuth />
+                
                 <p className="text-sm font-light text-gray-500">
                   Already have an account?{' '}
                   <Link to="/sign-in" className="font-medium text-blue-600 hover:underline">
