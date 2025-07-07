@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSlice.js';
+import { useSelector } from 'react-redux';
 
 export default function SignIn() {
 
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const { error, loading } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -15,8 +18,8 @@ export default function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-       setLoading(true);
-    const res = await fetch('/api/auth/signin', {
+      dispatch(signInStart());
+      const res = await fetch('/api/auth/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,16 +28,13 @@ export default function SignIn() {
     });
     const data = await res.json();
     if(data.success === false) {
-      setLoading(false);
-      setError(data.message);
+      dispatch(signInFailure(data.message));
       return;
     }
-    setLoading(false);
-    setError(null);
+    dispatch(signInSuccess(data));
     navigate('/');
     } catch (error) {
-       setLoading(false);
-      setError(error.message);
+       dispatch(signInFailure(error.message));
     }
   };
 
@@ -46,7 +46,7 @@ export default function SignIn() {
           <div className="w-full bg-white rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                Log In
+                Sign In
               </h1>
               
                 {error && <p className='text-red-500 mt-5'>{error}</p>}
@@ -82,7 +82,7 @@ export default function SignIn() {
                   type="submit"
                   className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
-                  {loading ? 'Loading...' : 'Log In'}
+                  {loading ? 'Loading...' : 'Sign In'}
                 </button>
                 <button
                   type="submit"
